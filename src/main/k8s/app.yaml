@@ -1,0 +1,48 @@
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: app
+#  labels:
+#    app: app
+#spec:
+#  clusterIP: None
+#  ports:
+#    - port: 5672
+#  selector:
+#    app: app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-mg
+  labels:
+    app: app-mg
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 30002
+  selector:
+    app: app
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app
+        image: springio/demo
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+          name: web
+
+
+

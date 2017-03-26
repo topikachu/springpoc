@@ -1,0 +1,7 @@
+spring:
+  application:
+    index: ${HOSTNAME}
+  rabbitmq:
+    addresses: "rabbitmq-0.rabbitmq,rabbitmq-1,rabbitmq"
+server:
+  address: 0.0.0.0
